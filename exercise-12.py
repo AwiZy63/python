@@ -107,16 +107,16 @@ class ProductLorem:
         self._name = ""
         self._price = 0.0
 
-    def get_Name(self):
+    def get_name(self):
         return self._name
 
-    def set_Name(self, name):
+    def set_name(self, name):
         self._name = name
 
-    def get_Price(self):
+    def get_price(self):
         return self._price
 
-    def set_Price(self, price):
+    def set_price(self, price):
         self._price = price
 
 
@@ -134,42 +134,56 @@ class ProductLorem:
 
 # réponse 12.5
 
-product = ProductLorem()
+product1 = ProductLorem()
 
-product.set_Name("Foo")
-product.set_Price(31.41)
+product1.set_name("Foo")
+product1.set_price(31.41)
 
-print(product.get_Name())
-print(product.get_Price())
+print(product1.get_name())
+print(product1.get_price())
 
 print()
 
 product2 = ProductLorem()
 
-product2.set_Name("Bar")
-product2.set_Price(27.18)
+product2.set_name("Bar")
+product2.set_price(27.18)
 
-print(product2.get_Name())
-print(product2.get_Price())
+print(product2.get_name())
+print(product2.get_price())
 
 print()
 
 product3 = ProductLorem()
 
-product3.set_Name("Baz")
-product3.set_Price(16.18)
+product3.set_name("Baz")
+product3.set_price(16.18)
 
-print(product3.get_Name())
-print(product3.get_Price())
+print(product3.get_name())
+print(product3.get_price())
 
 print()
 
 # exo 12.6
-# Ajoutez chacune des instances de la classe `ProductLorem` à une liste nommée `product_lorems`
+# Ajoutez chacune des instances de la classe `ProductLorem` à une liste nommée `products`
 # Utilisez une boucle `for` (type `foreach`) pour afficher le nom et le prix de chaque produit
-# Calculez la somme du prix des produits et affichez-la après la boucle `for`
+# Calculez la somme du prix des produits et affichez-en un arrondi à 2 chiffres après la virgule, après la boucle `for`
+
 
 # réponse 12.6
+
+products = [product1, product2, product3]
+
+total_Product_Price = 0
+
+for product in products:
+    total_Product_Price += product.get_price()
+ 
+    print(f"Nom du produit : {product.get_name()} | Prix du produit : {product.get_price()}")
+
+    print()
+    print(f"La somme total des produits est de {round(total_Product_Price, 2)}")
+    print()
 
 # exo 12.7
 # Créez une classe nommée `ProductIpsum` qui possède les attributs suivants :
@@ -187,6 +201,34 @@ print()
 # - getTaxIncludedPrice() : cette méthode renvoit le prix taxe incluse
 
 # réponse 12.7
+class ProductIpsum:
+    def __init__(self, name:str='', price:int=0.0, tax:int=0.0):
+        self._name = name
+        self._price = price
+        self._tax = tax
+
+    def get_name(self) -> str:
+        return self._name
+
+    def set_name(self, name:str) -> None:
+        self._name = name
+
+    def get_price(self) -> int:
+        return self._price
+
+    def set_price(self, price:int) -> None:
+        self._price = price
+        
+    def get_tax(self) -> int:
+        return self._tax
+
+    def set_tax(self, tax:int) -> None:
+        self._tax = tax
+
+    def get_tax_included_price(self) -> int:
+        return self._price + ((self._tax * self._price) / 100)
+
+
 
 # exo 12.8
 # Créez 3 instances de la classe `ProductIpsum` et affectez les valeurs suivantes à ses attributs en utilisant le constructeur :
@@ -204,7 +246,37 @@ print()
 #   - tax: 5.5
 
 # réponse 12.8
+product1 = ProductIpsum()
 
+product1.set_name("Dolor")
+product1.set_price(31.41)
+product1.set_tax(20.0)
+print(product1.get_name())
+print(product1.get_price())
+print(product1.get_tax())
+print(product1.get_tax_included_price())
+print()
+
+product2 = ProductIpsum()
+product2.set_name("Sit")
+product2.set_price(27.18)
+product2.set_tax(10.0)
+print(product2.get_name())
+print(product2.get_price())
+print(product2.get_tax())
+print(product2.get_tax_included_price())
+print()
+
+product3 = ProductIpsum()
+product3.set_name("Amet")
+product3.set_price(16.18)
+product3.set_tax(5.5)
+print(product3.get_name())
+print(product3.get_price())
+print(product3.get_tax())
+print(product3.get_tax_included_price())
+print()
+print()
 # exo 12.9
 # Ajoutez chacune des instances de la classe `ProductIpsum` à une liste nommée `product_ipsums`
 # Utilisez une boucle `for` (type `foreach`) pour afficher le nom, le prix (sans la taxe), la taxe et le produit taxe incluse de chaque produit
@@ -215,3 +287,26 @@ print()
 # Et affichez-les après la boucle `for`
 
 # réponse 12.9
+
+product_ipsums = [product1, product2, product3]
+
+total_product_price_without_tax = 0
+total_tax_price = 0
+total_product_price_with_tax = 0
+
+for product in product_ipsums:
+    total_product_price_without_tax += product.get_price()
+    total_tax_price = ((product.get_tax() * product.get_price()) / 100)
+    total_product_price_with_tax = total_product_price_without_tax + total_tax_price
+
+    print(f"""Nom du produit : {product.get_name()} | 
+    Prix du produit : {product.get_price()}€ HT + {product.get_tax()}% de taxe 
+    soit : {product.get_tax_included_price()}€ TTC""")
+
+    print()
+    print(f"La somme total des produits sans les taxes est de {round(total_product_price_without_tax, 2)}")
+    print()
+    print(f"La somme du montant des taxes est de {round(total_tax_price, 2)}")
+    print()
+    print(f"La somme total des produits avec les taxes est de {round(total_product_price_with_tax, 2)}")
+    print()
